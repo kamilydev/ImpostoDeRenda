@@ -1,10 +1,25 @@
 package org.example;
 
-class ImpostoDeRenda {
+public class ImpostoDeRenda implements FaixaImpostoDeRenda {
     private Pessoa pessoa;
 
     public ImpostoDeRenda(Pessoa pessoa) {
         this.pessoa = pessoa;
+    }
+
+    @Override
+    public int getFaixa(double salario) {
+        if (salario <= 2112) {
+            return 1;
+        } else if (salario <= 2826.66) {
+            return 2;
+        } else if (salario <= 3751.06) {
+            return 3;
+        } else if (salario <= 4664.68) {
+            return 4;
+        } else {
+            return 5;
+        }
     }
 
     public double calcular() {
@@ -31,7 +46,7 @@ class ImpostoDeRenda {
     }
 
     public void imprimir() {
-        int faixa = FaixaImpostoDeRenda.getFaixa(pessoa.salario);
+        int faixa = getFaixa(pessoa.salario);
         double imposto = calcular();
         System.out.printf("%s, seu salário é R$ %.2f, sua faixa de imposto é %d e o valor do imposto de renda a ser pago é: R$ %.2f%n",
                 pessoa.nome, pessoa.salario, faixa, imposto);
